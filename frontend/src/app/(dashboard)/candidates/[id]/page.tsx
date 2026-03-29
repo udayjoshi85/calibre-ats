@@ -297,6 +297,7 @@ export default function CandidatePage({ params }: CandidatePageProps) {
                   label={SIGNAL_LABELS[key]?.label || key}
                   score={score}
                   weight={SIGNAL_LABELS[key]?.weight || 0}
+                  evidence={analysis.signal_evidence?.[key as keyof typeof analysis.signal_evidence] || []}
                 />
               ))}
             </div>

@@ -105,6 +105,17 @@ async def analyze_candidate(
             except (ValueError, TypeError):
                 return 0
 
+        # Get signal evidence from analysis result
+        signal_evidence = analysis_result.get("signal_evidence", {})
+
+        # Add resume quality evidence if not present
+        if "resume_quality" not in signal_evidence:
+            signal_evidence["resume_quality"] = []
+            if quality_metrics.get("length_score", 0) >= 70:
+                signal_evidence["resume_quality"].append("Well-structured resume")
+            if quality_metrics.get("has_metrics", False):
+                signal_evidence["resume_quality"].append("Includes quantified achievements")
+
         analysis_data = {
             "candidate_id": candidate_id,
             "overall_score": to_int(overall_score),
@@ -128,6 +139,7 @@ async def analyze_candidate(
             "red_flags": analysis_result.get("red_flags", []),
             "summary": analysis_result.get("summary", ""),
             "recommendation": recommendation,
+            "signal_evidence": signal_evidence,
         }
 
         # Upsert analysis results

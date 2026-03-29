@@ -58,6 +58,18 @@ Analyze this candidate and return a JSON object with:
     "soft_skills_score": <0-100, evidence of leadership, communication, etc>,
     "extracurriculars_score": <0-100, relevant side projects, community involvement>,
 
+    "signal_evidence": {{
+        "experience_relevance": ["Direct quote or paraphrase from resume showing relevant experience", "Another evidence point"],
+        "technical_skills": ["Built ETL pipeline processing 2M records/day", "Used Snowflake in production system"],
+        "business_impact": ["Increased revenue by 25%", "Reduced processing time by 40%"],
+        "proof_of_work": ["GitHub: 50+ repos with 500 stars", "Published technical blog with 10K readers"],
+        "career_growth": ["Promoted from Engineer to Senior in 2 years", "Grew team from 3 to 12 members"],
+        "certifications": ["AWS Solutions Architect - relevant for cloud role", "PMP certified"],
+        "soft_skills": ["Led cross-functional team of 8", "Mentored 5 junior developers"],
+        "resume_quality": ["Clear structure", "Quantified achievements"],
+        "extracurriculars": ["Open source contributor to React", "Tech conference speaker"]
+    }},
+
     "skills_matched": {{"skill_name": <relevance_score 0-100>}},
     "skills_missing": ["required skills not found in resume"],
 
@@ -73,6 +85,12 @@ Analyze this candidate and return a JSON object with:
 
     "summary": "2-3 sentence summary of the candidate's fit"
 }}
+
+IMPORTANT FOR signal_evidence:
+- Extract SPECIFIC quotes or paraphrased statements from the resume
+- Each evidence should be a concise, impactful statement (max 50 characters)
+- Include 1-3 evidence points per signal (only if found in resume)
+- If no evidence found for a signal, use an empty array []
 
 SCORING GUIDELINES:
 - 80-100: Exceptional evidence, exceeds expectations

@@ -60,11 +60,24 @@ export interface SignalScores {
 
 export type Recommendation = "strong_yes" | "yes" | "maybe" | "no";
 
+export interface SignalEvidence {
+  experience_relevance?: string[];
+  technical_skills?: string[];
+  business_impact?: string[];
+  proof_of_work?: string[];
+  career_growth?: string[];
+  certifications?: string[];
+  soft_skills?: string[];
+  resume_quality?: string[];
+  extracurriculars?: string[];
+}
+
 export interface Analysis {
   id: string;
   candidate_id: string;
   overall_score: number;
   signal_scores: SignalScores;
+  signal_evidence: SignalEvidence | null;
   experience_years: number | null;
   skills_matched: Record<string, number> | null;
   skills_missing: string[] | null;
