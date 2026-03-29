@@ -19,5 +19,5 @@ COPY . .
 # Railway provides PORT env variable
 ENV PORT=8000
 
-# Start command using shell form to expand $PORT
-CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
+# Start command - use shell to expand $PORT
+CMD ["/bin/sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
