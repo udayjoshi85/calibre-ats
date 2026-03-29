@@ -37,9 +37,22 @@ async def upload_candidate(
     content = await file.read()
     filename = file.filename or "resume"
 
-    # Upload to Supabase Storage
+    # Determine content type based on file extension
+    content_type = "application/octet-stream"
+    if filename.lower().endswith(".pdf"):
+        content_type = "application/pdf"
+    elif filename.lower().endswith(".docx"):
+        content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    elif filename.lower().endswith(".doc"):
+        content_type = "application/msword"
+
+    # Upload to Supabase Storage with correct content type
     storage_path = f"resumes/{job_id}/{filename}"
-    storage_result = supabase.storage.from_("resumes").upload(storage_path, content)
+    storage_result = supabase.storage.from_("resumes").upload(
+        storage_path,
+        content,
+        file_options={"content-type": content_type}
+    )
 
     # Get public URL
     resume_url = supabase.storage.from_("resumes").get_public_url(storage_path)
