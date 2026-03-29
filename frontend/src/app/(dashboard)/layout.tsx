@@ -27,31 +27,33 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-mesh">
+    <div className="min-h-screen bg-[#0f0f1a]">
       {/* Header */}
-      <header className="sticky top-0 z-50 glass border-b border-gray-200/50">
+      <header className="sticky top-0 z-50 bg-[#1a1a2e]/95 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             {/* Logo & Nav */}
             <div className="flex items-center gap-8">
               <Link href="/jobs" className="flex items-center group">
-                <Image
-                  src="/logo.png"
-                  alt="Calibre"
-                  width={140}
-                  height={40}
-                  className="h-9 w-auto"
-                  priority
-                />
+                <div className="bg-[#1a1a2e] rounded-xl p-2">
+                  <Image
+                    src="/logo.png"
+                    alt="Calibre"
+                    width={180}
+                    height={50}
+                    className="h-12 w-auto"
+                    priority
+                  />
+                </div>
               </Link>
 
               <nav className="hidden md:flex items-center gap-1">
                 <Link
                   href="/jobs"
-                  className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 ${
+                  className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${
                     pathname.startsWith("/jobs")
-                      ? "text-[#1a1a2e] bg-[#1a1a2e]/5"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                      ? "text-cyan-400 bg-cyan-500/10 border border-cyan-500/20"
+                      : "text-gray-300 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   <span className="flex items-center gap-2">
@@ -67,20 +69,20 @@ export default function DashboardLayout({
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <Button variant="ghost" className="gap-3 rounded-xl hover:bg-gray-100 px-3" />
+                <Button variant="ghost" className="gap-3 rounded-xl hover:bg-white/5 px-3 text-gray-300" />
               }>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#252545] flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-semibold text-sm shadow-lg shadow-cyan-500/25">
                   {user?.email?.[0].toUpperCase() || "U"}
                 </div>
-                <span className="hidden sm:inline text-sm text-gray-700 font-medium max-w-[150px] truncate">
+                <span className="hidden sm:inline text-sm text-gray-300 font-medium max-w-[150px] truncate">
                   {user?.email}
                 </span>
-                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
+              <DropdownMenuContent align="end" className="w-48 bg-[#1a1a2e] border-white/10">
+                <DropdownMenuItem onClick={handleSignOut} className="text-red-400 hover:text-red-300 hover:bg-red-500/10">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>

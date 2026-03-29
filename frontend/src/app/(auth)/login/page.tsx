@@ -45,13 +45,13 @@ export default function LoginPage() {
         <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20 text-white">
           <div className="mb-8">
             {/* Logo */}
-            <div className="mb-8">
+            <div className="mb-8 bg-[#1a1a2e]/80 backdrop-blur-sm rounded-2xl p-6 inline-block">
               <Image
                 src="/logo.png"
                 alt="Calibre"
-                width={320}
-                height={100}
-                className="h-20 w-auto"
+                width={400}
+                height={120}
+                className="h-28 w-auto"
                 priority
               />
             </div>
@@ -89,14 +89,16 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <Image
-              src="/logo.png"
-              alt="Calibre"
-              width={200}
-              height={60}
-              className="h-14 w-auto mx-auto"
-              priority
-            />
+            <div className="inline-block bg-[#1a1a2e] rounded-xl p-4">
+              <Image
+                src="/logo.png"
+                alt="Calibre"
+                width={240}
+                height={70}
+                className="h-16 w-auto"
+                priority
+              />
+            </div>
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100">
