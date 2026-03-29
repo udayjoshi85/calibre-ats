@@ -8,7 +8,14 @@ class Settings(BaseSettings):
     supabase_key: str
     supabase_service_key: str
 
-    # Ollama
+    # LLM Provider - "groq" for cloud, "ollama" for local
+    llm_provider: str = "ollama"
+
+    # Groq (cloud)
+    groq_api_key: str | None = None
+    groq_model: str = "llama-3.1-8b-instant"
+
+    # Ollama (local)
     ollama_host: str = "http://localhost:11434"
     ollama_model: str = "llama3.1:8b"
 

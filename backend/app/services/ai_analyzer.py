@@ -2,14 +2,35 @@ import json
 import re
 from typing import Optional
 
-import ollama
-
 from app.config import get_settings
 from app.services.database import get_supabase_client
 from app.services.enrichment import enrich_github_profile, calculate_github_score
 from app.services.resume_parser import calculate_resume_quality_metrics
 from app.services.scoring import calculate_weighted_score
 from app.prompts.extraction import get_extraction_prompt, get_analysis_prompt
+
+
+def call_llm(prompt: str, settings) -> str:
+    """Call LLM based on configured provider (Groq or Ollama)."""
+    if settings.groq_api_key:
+        # Use Groq (cloud)
+        from groq import Groq
+        client = Groq(api_key=settings.groq_api_key)
+        response = client.chat.completions.create(
+            model=settings.groq_model,
+            messages=[{"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+        )
+        return response.choices[0].message.content
+    else:
+        # Use Ollama (local)
+        import ollama
+        response = ollama.chat(
+            model=settings.ollama_model,
+            messages=[{"role": "user", "content": prompt}],
+            format="json",
+        )
+        return response["message"]["content"]
 
 
 async def analyze_candidate(
@@ -36,14 +57,14 @@ async def analyze_candidate(
             }).eq("id", candidate_id).execute()
 
         # Step 2: Extract basic info from resume
-        extraction_result = extract_resume_info(resume_text, settings.ollama_model)
+        extraction_result = extract_resume_info(resume_text, settings)
 
         # Step 3: Analyze against job requirements
         analysis_result = analyze_against_requirements(
             resume_text,
             job_requirements,
             extraction_result,
-            settings.ollama_model
+            settings
         )
 
         # Step 4: Calculate resume quality metrics
@@ -107,22 +128,16 @@ async def analyze_candidate(
         raise
 
 
-def extract_resume_info(resume_text: str, model: str) -> dict:
-    """Extract structured info from resume using Ollama."""
+def extract_resume_info(resume_text: str, settings) -> dict:
+    """Extract structured info from resume using LLM."""
     prompt = get_extraction_prompt(resume_text)
-
-    response = ollama.chat(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        format="json",
-    )
+    content = call_llm(prompt, settings)
 
     try:
-        result = json.loads(response["message"]["content"])
+        result = json.loads(content)
         return result
     except json.JSONDecodeError:
         # Try to extract JSON from response
-        content = response["message"]["content"]
         json_match = re.search(r"\{.*\}", content, re.DOTALL)
         if json_match:
             return json.loads(json_match.group())
@@ -133,22 +148,16 @@ def analyze_against_requirements(
     resume_text: str,
     job_requirements: str,
     extraction_result: dict,
-    model: str
+    settings
 ) -> dict:
-    """Analyze resume against job requirements using Ollama."""
+    """Analyze resume against job requirements using LLM."""
     prompt = get_analysis_prompt(resume_text, job_requirements, extraction_result)
-
-    response = ollama.chat(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        format="json",
-    )
+    content = call_llm(prompt, settings)
 
     try:
-        result = json.loads(response["message"]["content"])
+        result = json.loads(content)
         return result
     except json.JSONDecodeError:
-        content = response["message"]["content"]
         json_match = re.search(r"\{.*\}", content, re.DOTALL)
         if json_match:
             return json.loads(json_match.group())

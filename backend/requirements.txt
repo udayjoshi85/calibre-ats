@@ -11,8 +11,9 @@ python-dotenv
 PyMuPDF
 python-docx
 
-# AI / Ollama
+# AI / LLM
 ollama
+groq
 httpx
 
 # Utilities
