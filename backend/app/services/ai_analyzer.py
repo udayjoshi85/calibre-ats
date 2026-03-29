@@ -90,12 +90,29 @@ async def analyze_candidate(
         # Step 7: Determine recommendation
         recommendation = get_recommendation(overall_score, analysis_result)
 
-        # Step 8: Store analysis results
+        # Step 8: Store analysis results (ensure all scores are integers)
+        def to_int(val):
+            """Convert value to int, handling floats and strings."""
+            if val is None:
+                return 0
+            try:
+                return int(float(val))
+            except (ValueError, TypeError):
+                return 0
+
         analysis_data = {
             "candidate_id": candidate_id,
-            "overall_score": overall_score,
-            **signal_scores,
-            "experience_years": experience_years,
+            "overall_score": to_int(overall_score),
+            "experience_relevance_score": to_int(signal_scores.get("experience_relevance_score")),
+            "technical_skills_score": to_int(signal_scores.get("technical_skills_score")),
+            "business_impact_score": to_int(signal_scores.get("business_impact_score")),
+            "proof_of_work_score": to_int(signal_scores.get("proof_of_work_score")),
+            "career_growth_score": to_int(signal_scores.get("career_growth_score")),
+            "certifications_score": to_int(signal_scores.get("certifications_score")),
+            "soft_skills_score": to_int(signal_scores.get("soft_skills_score")),
+            "resume_quality_score": to_int(signal_scores.get("resume_quality_score")),
+            "extracurriculars_score": to_int(signal_scores.get("extracurriculars_score")),
+            "experience_years": to_int(experience_years),
             "skills_matched": analysis_result.get("skills_matched", {}),
             "skills_missing": analysis_result.get("skills_missing", []),
             "certifications": extraction_result.get("certifications", []),
