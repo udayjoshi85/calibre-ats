@@ -35,13 +35,13 @@ export default function DashboardLayout({
             {/* Logo & Nav */}
             <div className="flex items-center gap-8">
               <Link href="/jobs" className="flex items-center group">
-                <div className="bg-[#1a1a2e] rounded-xl p-2">
+                <div className="bg-white rounded-xl px-4 py-2 shadow-lg shadow-black/10 hover:shadow-xl transition-shadow">
                   <Image
                     src="/logo.png"
                     alt="Calibre"
-                    width={180}
-                    height={50}
-                    className="h-12 w-auto"
+                    width={200}
+                    height={55}
+                    className="h-10 w-auto"
                     priority
                   />
                 </div>

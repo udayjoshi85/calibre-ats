@@ -44,22 +44,19 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20 text-white">
           <div className="mb-8">
-            {/* Logo */}
-            <div className="mb-8 bg-[#1a1a2e]/80 backdrop-blur-sm rounded-2xl p-6 inline-block">
+            {/* Logo - Clean white container for visibility */}
+            <div className="mb-10 bg-white rounded-2xl p-6 shadow-2xl shadow-black/20 inline-block">
               <Image
                 src="/logo.png"
                 alt="Calibre"
-                width={400}
-                height={120}
-                className="h-28 w-auto"
+                width={450}
+                height={140}
+                className="h-32 w-auto"
                 priority
               />
             </div>
 
-            <h2 className="text-4xl xl:text-5xl font-bold leading-tight mb-4">
-              Unlocking Human<br />Potential. Defined.
-            </h2>
-            <p className="text-lg text-white/70 max-w-md">
+            <p className="text-xl text-white/80 max-w-md leading-relaxed">
               AI-powered resume screening that extracts meaningful signals beyond keywords.
             </p>
           </div>
@@ -89,13 +86,13 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="inline-block bg-[#1a1a2e] rounded-xl p-4">
+            <div className="inline-block bg-white rounded-2xl p-4 shadow-lg">
               <Image
                 src="/logo.png"
                 alt="Calibre"
-                width={240}
-                height={70}
-                className="h-16 w-auto"
+                width={280}
+                height={85}
+                className="h-20 w-auto"
                 priority
               />
             </div>
