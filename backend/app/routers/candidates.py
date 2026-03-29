@@ -94,31 +94,41 @@ async def list_candidates(
     """List candidates for a job, sorted by score."""
     supabase = get_supabase_client()
 
-    # Build query
-    query = supabase.table("candidates").select(
-        "*, analysis_results(overall_score)"
-    ).eq("job_id", str(job_id))
+    try:
+        # Build query
+        query = supabase.table("candidates").select(
+            "*, analysis_results(overall_score)"
+        ).eq("job_id", str(job_id))
 
-    if status:
-        query = query.eq("status", status)
+        if status:
+            query = query.eq("status", status)
 
-    result = query.execute()
+        result = query.execute()
 
-    # Flatten and add overall_score
-    candidates = []
-    for row in result.data:
-        analysis = row.pop("analysis_results", [])
-        overall_score = analysis[0]["overall_score"] if analysis else None
-        candidates.append({**row, "overall_score": overall_score})
+        # Flatten and add overall_score
+        candidates = []
+        for row in result.data:
+            analysis = row.pop("analysis_results", None)
+            # Handle different formats: could be list, dict, or None
+            if isinstance(analysis, list) and len(analysis) > 0:
+                overall_score = analysis[0].get("overall_score")
+            elif isinstance(analysis, dict):
+                overall_score = analysis.get("overall_score")
+            else:
+                overall_score = None
+            candidates.append({**row, "overall_score": overall_score})
 
-    # Sort by score
-    if sort_by == "overall_score":
-        candidates.sort(
-            key=lambda x: x.get("overall_score") or 0,
-            reverse=(sort_order == "desc")
-        )
+        # Sort by score
+        if sort_by == "overall_score":
+            candidates.sort(
+                key=lambda x: x.get("overall_score") or 0,
+                reverse=(sort_order == "desc")
+            )
 
-    return candidates
+        return candidates
+    except Exception as e:
+        print(f"Error listing candidates: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/candidates/{candidate_id}", response_model=CandidateDetailResponse)
