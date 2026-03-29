@@ -68,7 +68,12 @@ async def analyze_candidate(
         )
 
         # Step 4: Calculate resume quality metrics
-        experience_years = extraction_result.get("experience_years", 0)
+        experience_years = extraction_result.get("experience_years") or 0
+        if not isinstance(experience_years, (int, float)):
+            try:
+                experience_years = int(float(experience_years))
+            except (ValueError, TypeError):
+                experience_years = 0
         quality_metrics = calculate_resume_quality_metrics(resume_text, experience_years)
 
         # Step 5: Calculate individual signal scores
