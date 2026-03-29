@@ -46,12 +46,17 @@ async def upload_candidate(
     elif filename.lower().endswith(".doc"):
         content_type = "application/msword"
 
+    # Generate unique filename to avoid conflicts
+    import uuid
+    unique_id = str(uuid.uuid4())[:8]
+    safe_filename = f"{unique_id}_{filename}"
+
     # Upload to Supabase Storage with correct content type
-    storage_path = f"resumes/{job_id}/{filename}"
+    storage_path = f"resumes/{job_id}/{safe_filename}"
     storage_result = supabase.storage.from_("resumes").upload(
         storage_path,
         content,
-        file_options={"content-type": content_type}
+        file_options={"content-type": content_type, "upsert": "true"}
     )
 
     # Get public URL
