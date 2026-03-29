@@ -52,15 +52,13 @@ export default function DashboardLayout({
 
             {/* User Menu */}
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
-                    {user?.email?.[0].toUpperCase() || "U"}
-                  </div>
-                  <span className="hidden sm:inline text-sm text-gray-600">
-                    {user?.email}
-                  </span>
-                </Button>
+              <DropdownMenuTrigger render={<Button variant="ghost" className="gap-2" />}>
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
+                  {user?.email?.[0].toUpperCase() || "U"}
+                </div>
+                <span className="hidden sm:inline text-sm text-gray-600">
+                  {user?.email}
+                </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={handleSignOut}>

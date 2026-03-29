@@ -100,8 +100,8 @@ export default function JobsPage() {
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>Create Job</Button>
+          <DialogTrigger render={<Button />}>
+            Create Job
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <form onSubmit={handleCreateJob}>

@@ -152,38 +152,36 @@ export function CandidateCard({
           </div>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                  />
-                </svg>
-              </Button>
+            <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                />
+              </svg>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link href={`/candidates/${candidate.id}`}>
-                  View Details
-                </Link>
+              <DropdownMenuItem render={<Link href={`/candidates/${candidate.id}`} />}>
+                View Details
               </DropdownMenuItem>
               {candidate.resume_url && (
-                <DropdownMenuItem asChild>
-                  <a
-                    href={candidate.resume_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download Resume
-                  </a>
+                <DropdownMenuItem
+                  render={
+                    <a
+                      href={candidate.resume_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    />
+                  }
+                >
+                  Download Resume
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
