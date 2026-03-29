@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Logo } from "@/components/Logo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -44,19 +44,12 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20 text-white">
           <div className="mb-8">
-            {/* Logo - Clean white container for visibility */}
-            <div className="mb-10 bg-white rounded-2xl p-6 shadow-2xl shadow-black/20 inline-block">
-              <Image
-                src="/logo.png"
-                alt="Calibre"
-                width={450}
-                height={140}
-                className="h-32 w-auto"
-                priority
-              />
+            {/* Logo - SVG with transparent background */}
+            <div className="mb-10">
+              <Logo size="xl" showTagline={true} />
             </div>
 
-            <p className="text-xl text-white/80 max-w-md leading-relaxed">
+            <p className="text-xl text-white/70 max-w-md leading-relaxed">
               AI-powered resume screening that extracts meaningful signals beyond keywords.
             </p>
           </div>
@@ -85,17 +78,8 @@ export default function LoginPage() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-mesh">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="lg:hidden text-center mb-8">
-            <div className="inline-block bg-white rounded-2xl p-4 shadow-lg">
-              <Image
-                src="/logo.png"
-                alt="Calibre"
-                width={280}
-                height={85}
-                className="h-20 w-auto"
-                priority
-              />
-            </div>
+          <div className="lg:hidden flex justify-center mb-8">
+            <Logo size="lg" showTagline={true} />
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100">
