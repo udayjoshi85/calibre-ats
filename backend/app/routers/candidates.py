@@ -131,41 +131,54 @@ async def list_candidates(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/candidates/{candidate_id}", response_model=CandidateDetailResponse)
+@router.get("/candidates/{candidate_id}")
 async def get_candidate(candidate_id: UUID):
     """Get detailed candidate info with analysis."""
     supabase = get_supabase_client()
 
-    result = supabase.table("candidates").select(
-        "*, analysis_results(*)"
-    ).eq("id", str(candidate_id)).single().execute()
+    try:
+        result = supabase.table("candidates").select(
+            "*, analysis_results(*)"
+        ).eq("id", str(candidate_id)).single().execute()
 
-    if not result.data:
-        raise HTTPException(status_code=404, detail="Candidate not found")
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Candidate not found")
 
-    candidate = result.data
-    analysis_list = candidate.pop("analysis_results", [])
-    analysis = analysis_list[0] if analysis_list else None
+        candidate = result.data
+        analysis_data = candidate.pop("analysis_results", None)
 
-    # Transform analysis to expected format
-    if analysis:
-        analysis["signal_scores"] = {
-            "experience_relevance": analysis.get("experience_relevance_score", 0),
-            "technical_skills": analysis.get("technical_skills_score", 0),
-            "business_impact": analysis.get("business_impact_score", 0),
-            "proof_of_work": analysis.get("proof_of_work_score", 0),
-            "career_growth": analysis.get("career_growth_score", 0),
-            "certifications": analysis.get("certifications_score", 0),
-            "soft_skills": analysis.get("soft_skills_score", 0),
-            "resume_quality": analysis.get("resume_quality_score", 0),
-            "extracurriculars": analysis.get("extracurriculars_score", 0),
+        # Handle different formats: could be list, dict, or None
+        if isinstance(analysis_data, list) and len(analysis_data) > 0:
+            analysis = analysis_data[0]
+        elif isinstance(analysis_data, dict):
+            analysis = analysis_data
+        else:
+            analysis = None
+
+        # Transform analysis to expected format
+        if analysis:
+            analysis["signal_scores"] = {
+                "experience_relevance": analysis.get("experience_relevance_score", 0) or 0,
+                "technical_skills": analysis.get("technical_skills_score", 0) or 0,
+                "business_impact": analysis.get("business_impact_score", 0) or 0,
+                "proof_of_work": analysis.get("proof_of_work_score", 0) or 0,
+                "career_growth": analysis.get("career_growth_score", 0) or 0,
+                "certifications": analysis.get("certifications_score", 0) or 0,
+                "soft_skills": analysis.get("soft_skills_score", 0) or 0,
+                "resume_quality": analysis.get("resume_quality_score", 0) or 0,
+                "extracurriculars": analysis.get("extracurriculars_score", 0) or 0,
+            }
+
+        return {
+            **candidate,
+            "overall_score": analysis.get("overall_score") if analysis else None,
+            "analysis": analysis
         }
-
-    return {
-        **candidate,
-        "overall_score": analysis.get("overall_score") if analysis else None,
-        "analysis": analysis
-    }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error getting candidate {candidate_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.put("/candidates/{candidate_id}/status", response_model=CandidateResponse)
