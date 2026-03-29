@@ -49,72 +49,79 @@
 }
 
 :root {
-  --background: #fafbfc;
+  --background: #f8fafc;
   --foreground: #1a1a2e;
   --card: #ffffff;
   --card-foreground: #1a1a2e;
   --popover: #ffffff;
   --popover-foreground: #1a1a2e;
-  --primary: #6366f1;
+  --primary: #1a1a2e;
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
   --secondary-foreground: #1a1a2e;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #eef2ff;
-  --accent-foreground: #4f46e5;
+  --accent: #e8f4fc;
+  --accent-foreground: #1a1a2e;
   --destructive: #ef4444;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #6366f1;
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #a855f7;
-  --chart-4: #d946ef;
-  --chart-5: #ec4899;
+  --ring: #1a1a2e;
+  --chart-1: #22d3ee;
+  --chart-2: #3b82f6;
+  --chart-3: #d4a574;
+  --chart-4: #1a1a2e;
+  --chart-5: #0ea5e9;
   --radius: 0.75rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #1a1a2e;
-  --sidebar-primary: #6366f1;
+  --sidebar-primary: #1a1a2e;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eef2ff;
-  --sidebar-accent-foreground: #4f46e5;
+  --sidebar-accent: #e8f4fc;
+  --sidebar-accent-foreground: #1a1a2e;
   --sidebar-border: #e2e8f0;
-  --sidebar-ring: #6366f1;
+  --sidebar-ring: #1a1a2e;
+
+  /* Brand colors */
+  --brand-navy: #1a1a2e;
+  --brand-dark: #12121f;
+  --brand-cyan: #22d3ee;
+  --brand-blue: #3b82f6;
+  --brand-gold: #d4a574;
 }
 
 .dark {
-  --background: #0f172a;
+  --background: #0f0f1a;
   --foreground: #f8fafc;
-  --card: #1e293b;
+  --card: #1a1a2e;
   --card-foreground: #f8fafc;
-  --popover: #1e293b;
+  --popover: #1a1a2e;
   --popover-foreground: #f8fafc;
-  --primary: #818cf8;
-  --primary-foreground: #1e1b4b;
-  --secondary: #334155;
+  --primary: #22d3ee;
+  --primary-foreground: #1a1a2e;
+  --secondary: #252540;
   --secondary-foreground: #f8fafc;
-  --muted: #334155;
+  --muted: #252540;
   --muted-foreground: #94a3b8;
-  --accent: #312e81;
-  --accent-foreground: #c7d2fe;
+  --accent: #1e3a5f;
+  --accent-foreground: #22d3ee;
   --destructive: #f87171;
-  --border: #334155;
-  --input: #334155;
-  --ring: #818cf8;
-  --chart-1: #818cf8;
-  --chart-2: #a78bfa;
-  --chart-3: #c084fc;
-  --chart-4: #e879f9;
-  --chart-5: #f472b6;
-  --sidebar: #1e293b;
+  --border: #252540;
+  --input: #252540;
+  --ring: #22d3ee;
+  --chart-1: #22d3ee;
+  --chart-2: #3b82f6;
+  --chart-3: #d4a574;
+  --chart-4: #f8fafc;
+  --chart-5: #0ea5e9;
+  --sidebar: #1a1a2e;
   --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #818cf8;
-  --sidebar-primary-foreground: #1e1b4b;
-  --sidebar-accent: #312e81;
-  --sidebar-accent-foreground: #c7d2fe;
-  --sidebar-border: #334155;
-  --sidebar-ring: #818cf8;
+  --sidebar-primary: #22d3ee;
+  --sidebar-primary-foreground: #1a1a2e;
+  --sidebar-accent: #252540;
+  --sidebar-accent-foreground: #22d3ee;
+  --sidebar-border: #252540;
+  --sidebar-ring: #22d3ee;
 }
 
 @layer base {
@@ -164,24 +171,28 @@
 
 /* Glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Gradient backgrounds */
-.bg-gradient-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+/* Brand gradient backgrounds */
+.bg-gradient-brand {
+  background: linear-gradient(135deg, #1a1a2e 0%, #252545 50%, #1a1a2e 100%);
+}
+
+.bg-gradient-brand-dark {
+  background: linear-gradient(180deg, #12121f 0%, #1a1a2e 50%, #12121f 100%);
 }
 
 .bg-gradient-mesh {
-  background-color: #fafbfc;
+  background-color: #f8fafc;
   background-image:
-    radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+    radial-gradient(at 40% 20%, rgba(34, 211, 238, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(212, 165, 116, 0.05) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(34, 211, 238, 0.06) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
 }
 
 /* Card hover effects */
@@ -190,15 +201,15 @@
 }
 
 .card-hover:hover {
-  @apply shadow-lg shadow-primary/10 -translate-y-1;
+  @apply shadow-lg shadow-cyan-500/10 -translate-y-1;
 }
 
-/* Button styles */
+/* Button styles - Brand themed */
 .btn-primary {
-  @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600
-         hover:from-indigo-600 hover:via-purple-600 hover:to-indigo-700
-         text-white font-medium shadow-lg shadow-indigo-500/25
-         transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/30
+  @apply bg-gradient-to-r from-[#1a1a2e] via-[#252545] to-[#1a1a2e]
+         hover:from-[#252545] hover:via-[#2d2d55] hover:to-[#252545]
+         text-white font-medium shadow-lg shadow-[#1a1a2e]/25
+         transition-all duration-300 hover:shadow-xl hover:shadow-[#1a1a2e]/30
          hover:-translate-y-0.5 active:translate-y-0;
 }
 
@@ -206,6 +217,13 @@
   @apply bg-white border border-gray-200 text-gray-700
          hover:bg-gray-50 hover:border-gray-300
          shadow-sm hover:shadow transition-all duration-200;
+}
+
+.btn-accent {
+  @apply bg-gradient-to-r from-cyan-400 to-blue-500
+         hover:from-cyan-500 hover:to-blue-600
+         text-white font-medium shadow-lg shadow-cyan-500/25
+         transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/30;
 }
 
 /* Score badge styles */
@@ -239,4 +257,12 @@
 @keyframes loading-dot {
   0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
   40% { transform: scale(1); opacity: 1; }
+}
+
+/* Text gradients */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 50%, #d4a574 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

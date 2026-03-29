@@ -29,7 +29,7 @@ const statusConfig: Record<string, { bg: string; text: string; dot: string }> = 
 const getScoreConfig = (score: number | null) => {
   if (score === null) return { bg: "bg-gray-100", text: "text-gray-600", ring: "ring-gray-200", label: "Pending" };
   if (score >= 80) return { bg: "bg-gradient-to-br from-emerald-400 to-emerald-600", text: "text-white", ring: "ring-emerald-200", label: "Strong Yes" };
-  if (score >= 65) return { bg: "bg-gradient-to-br from-blue-400 to-blue-600", text: "text-white", ring: "ring-blue-200", label: "Yes" };
+  if (score >= 65) return { bg: "bg-gradient-to-br from-cyan-400 to-blue-500", text: "text-white", ring: "ring-cyan-200", label: "Yes" };
   if (score >= 45) return { bg: "bg-gradient-to-br from-amber-400 to-amber-600", text: "text-white", ring: "ring-amber-200", label: "Maybe" };
   return { bg: "bg-gradient-to-br from-red-400 to-red-600", text: "text-white", ring: "ring-red-200", label: "No" };
 };
@@ -50,10 +50,10 @@ export function CandidateCard({
   return (
     <div
       onClick={handleCardClick}
-      className="group bg-white rounded-2xl border border-gray-100 p-5 cursor-pointer card-hover hover:border-indigo-200 relative overflow-hidden"
+      className="group bg-white rounded-2xl border border-gray-100 p-5 cursor-pointer card-hover hover:border-cyan-200 relative overflow-hidden"
     >
       {/* Decorative gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       <div className="relative z-10">
         {/* Header */}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,8 +50,8 @@ export default function RegisterPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-mesh px-4">
         <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100 max-w-md w-full text-center">
-          <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -72,36 +73,41 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary relative overflow-hidden">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-brand-dark relative overflow-hidden">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl"></div>
 
         <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20 text-white">
           <div className="mb-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h1 className="text-3xl font-bold tracking-tight">Calibre</h1>
+            {/* Logo */}
+            <div className="mb-8">
+              <Image
+                src="/logo.png"
+                alt="Calibre"
+                width={320}
+                height={100}
+                className="h-20 w-auto"
+                priority
+              />
             </div>
+
             <h2 className="text-4xl xl:text-5xl font-bold leading-tight mb-4">
-              Start Hiring<br />Smarter Today
+              Unlocking Human<br />Potential. Defined.
             </h2>
-            <p className="text-lg text-white/80 max-w-md">
+            <p className="text-lg text-white/70 max-w-md">
               Join recruiters who save hours screening resumes with AI-powered signal extraction.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-8">
             {[
-              { value: "90%", label: "Time Saved" },
-              { value: "9", label: "Signal Scores" },
-              { value: "3x", label: "Better Hires" },
-              { value: "24/7", label: "AI Analysis" },
+              { value: "90%", label: "Time Saved", color: "bg-cyan-500/20" },
+              { value: "9", label: "Signal Scores", color: "bg-blue-500/20" },
+              { value: "3x", label: "Better Hires", color: "bg-amber-500/20" },
+              { value: "24/7", label: "AI Analysis", color: "bg-cyan-500/20" },
             ].map((stat, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur rounded-xl p-4">
+              <div key={i} className={`${stat.color} backdrop-blur rounded-xl p-4 border border-white/10`}>
                 <div className="text-2xl font-bold">{stat.value}</div>
                 <div className="text-sm text-white/70">{stat.label}</div>
               </div>
@@ -115,14 +121,14 @@ export default function RegisterPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="inline-flex items-center gap-2 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-gray-900">Calibre</h1>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Calibre"
+              width={200}
+              height={60}
+              className="h-14 w-auto mx-auto"
+              priority
+            />
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100">
@@ -150,7 +156,7 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all"
+                  className="h-12 rounded-xl border-gray-200 focus:border-[#1a1a2e] focus:ring-[#1a1a2e]/20 transition-all"
                 />
               </div>
 
@@ -163,7 +169,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all"
+                  className="h-12 rounded-xl border-gray-200 focus:border-[#1a1a2e] focus:ring-[#1a1a2e]/20 transition-all"
                 />
               </div>
 
@@ -176,7 +182,7 @@ export default function RegisterPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="h-12 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all"
+                  className="h-12 rounded-xl border-gray-200 focus:border-[#1a1a2e] focus:ring-[#1a1a2e]/20 transition-all"
                 />
               </div>
 
@@ -205,7 +211,7 @@ export default function RegisterPage() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors"
+                  className="text-[#1a1a2e] hover:text-[#252545] font-semibold transition-colors"
                 >
                   Sign in
                 </Link>
@@ -214,7 +220,7 @@ export default function RegisterPage() {
           </div>
 
           <p className="mt-8 text-center text-sm text-gray-400">
-            AI-Powered Applicant Tracking System
+            Unlocking Human Potential. Defined.
           </p>
         </div>
       </div>
